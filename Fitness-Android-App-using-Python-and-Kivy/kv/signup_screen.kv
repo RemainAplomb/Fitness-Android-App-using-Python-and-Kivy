@@ -1,0 +1,95 @@
+#===========================================================================================================#
+
+#   COURSE-SECTION: BSCPE 2-2
+#   SUBJECT: SOFTWARE DEVELOPMENT
+#   GROUP MEMBERS:
+#           DIBANSA, RAHMANI 
+#           NAVARRO, KAREN
+#           PALATTAO, LARRY SIMOUN
+#           AQUINO, NIKKO LEO
+#   BRIEF DESCRIPTION OF THE PROGRAM:
+#           THIS PROGRAM IS A FITNESS APP AIMED TO PROVIDE ITS USERS THE LEISURE AND CONVENIENCE OF FINDING
+#       SUITABLE EXERCISES. THE PROGRAM IS MADE USING PYTHON, KIVY, AND ITS DEPENDENCIES TO PROVIDE A
+#       MULTI-PLATFORM ACCESS TO THE APPLICATION'S USERS.
+#           SAID FITNESS ANDROID APPLICATION IS A MIDTERM PROJECT FOR THE SOFTWARE DEVELOPMENT SUBJECT. THE
+#       PROGRAM WILL BE ASSESSED AND GRADED USING THE ESTABLISHED CRITERIA BEFOREHAND.
+#
+# REPRESENTATION OF THE CONNECTION OF THE PROGRAM'S SCREENS/WINDOWS.
+#	,->startup_screen <--------------------------------( LOG OUT )--------------------------------,
+#	|			↑																				  |
+#	|			'---->login_screen -----> main_screen ------------------------------------------->|
+#	'-----> SignUpScreen				  ↑	 ↑                                                    |
+#										  |	 '--------------------> report_screen --------------->|
+#										  |							 ↑                            |
+#										  '----> selected_workout ---'--------------------------->|
+#										  |  	  |                                               |
+#										  '-------'----> workout_screen                           |
+#										  | 			      |                                   |
+#										  '-------------------'----> congratulation_screen ------>'
+
+#===========================================================================================================#
+
+
+#========== SIGN UP SCREEN ==========#
+# THIS SCREEN ACCOMODATES THE USER'S
+# ACCOUNT CREATION. AFTER SUCCESSFULLY
+# CREATING AN ACCOUNT, THE USER WILL 
+# BE DIRECTED BACK TO THEE START UP 
+# SCREEN.
+<SignUpScreen>:
+	FloatLayout:
+		canvas.before:
+			Rectangle:
+				pos: self.pos
+				size: self.size
+				source: "resources/backgrounds/signup_background.jpg"
+		TextInput:
+            id: signup_username
+            hint_text: "Username"
+            size_hint: .3, .05
+            pos_hint: {"x": .36, "y" :.55}
+            on_text:
+                self.focus = not self.focus if self.text.endswith("\n") else self.focus
+                #self.text = self.text.replace("\n","")
+        TextInput:
+            id: signup_password
+            password: True
+            hint_text: "Password"
+            size_hint: .3, .05
+            pos_hint: {"x": .36, "y" :.45}
+            on_text:
+                self.focus = not self.focus if self.text.endswith("\n") else self.focus
+                #self.text = self.text.replace("\n","")
+		ImageButton:
+			id: SU_signup_BTN
+			source: "resources/buttons/signup.jpg"
+			#background_color: 0, 0, 0, 0
+			allow_stretch: True
+			keep_ratio: False
+			size_hint : 0.3, 0.05
+			pos_hint: { "x" : 0.375 , "y" : 0.3 }
+			on_release:
+				app.POS.try_signup( signup_username.text, signup_password.text )
+				signup_username.text = ""
+				signup_password.text = ""
+		Label:
+            id: signup_message
+            color: (1,0,0,1)
+            size_hint: .3, .1
+            pos_hint: {"x": 0.36 , "y" : 0.35}
+		FloatLayout:
+			size_hint : 0.1, 0.1
+			pos_hint: { "x" : 0.0 , "y" : 0.90 }
+			canvas.before:
+				Rectangle:
+					size: self.size
+					pos: self.pos
+					source: "resources/buttons/back_arrow.jpg"
+			Button:
+				id : SU_goback_BTN
+				size_hint: 1, 1
+				background_color: 0, 0, 0, 0
+				pos_hint: { "x" : 0 , "y" : 0 }
+				on_release:
+					app.root.current = "startup_screen"
+					root.manager.transition.direction = "left"

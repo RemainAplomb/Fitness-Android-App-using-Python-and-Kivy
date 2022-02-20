@@ -1,0 +1,64 @@
+#===========================================================================================================#
+
+#   COURSE-SECTION: BSCPE 2-2
+#   SUBJECT: SOFTWARE DEVELOPMENT
+#   GROUP MEMBERS:
+#           DIBANSA, RAHMANI 
+#           NAVARRO, KAREN
+#           PALATTAO, LARRY SIMOUN
+#           AQUINO, NIKKO LEO
+#   BRIEF DESCRIPTION OF THE PROGRAM:
+#           THIS PROGRAM IS A FITNESS APP AIMED TO PROVIDE ITS USERS THE LEISURE AND CONVENIENCE OF FINDING
+#       SUITABLE EXERCISES. THE PROGRAM IS MADE USING PYTHON, KIVY, AND ITS DEPENDENCIES TO PROVIDE A
+#       MULTI-PLATFORM ACCESS TO THE APPLICATION'S USERS.
+#           SAID FITNESS ANDROID APPLICATION IS A MIDTERM PROJECT FOR THE SOFTWARE DEVELOPMENT SUBJECT. THE
+#       PROGRAM WILL BE ASSESSED AND GRADED USING THE ESTABLISHED CRITERIA BEFOREHAND.
+#
+# REPRESENTATION OF THE CONNECTION OF THE PROGRAM'S SCREENS/WINDOWS.
+#	,->startup_screen <--------------------------------( LOG OUT )--------------------------------,
+#	|			↑																				  |
+#	|			'---->login_screen -----> main_screen ------------------------------------------->|
+#	'-----> SignUpScreen				  ↑	 ↑                                                    |
+#										  |	 '--------------------> report_screen --------------->|
+#										  |							 ↑                            |
+#										  '----> selected_workout ---'--------------------------->|
+#										  |  	  |                                               |
+#										  '-------'----> workout_screen                           |
+#										  | 			      |                                   |
+#										  '-------------------'----> congratulation_screen ------>'
+
+#===========================================================================================================#
+
+#========== MENU DROP DOWN ==========#
+# USING KIVY'S DROP DOWN LIST MODULE,
+# THIS SIMPLE YET EFFECTIVE MENU IS 
+# ABLE TO COME TO LIFE. THIS MENU
+# CONTAINS THE BUTTONS THAT COULD LEAD
+# THE USER TO DIFFERENT SCREENS.
+<MenuDropDown>:
+	id: menu_dropdown
+	spacing: 10
+	padding: (0, 10, 0, 0)
+	ImageButton:
+		source: "resources/buttons/workout.png"
+		size_hint_y: None
+		height: 44
+		on_release:
+			app.root.current = "main_screen"
+			app.menu_dropdown.dismiss()
+	ImageButton:
+		source: "resources/buttons/report.png"
+		size_hint_y: None
+		height: 44
+		on_release:
+			app.deselect_bodypart()
+			app.show_total_stats()
+			app.menu_dropdown.dismiss()
+			app.root.current = "report_screen"
+	ImageButton:
+		source: "resources/buttons/sign_out.png"
+		size_hint_y: None
+		height: 44
+		on_release:
+			app.root.current = "startup_screen"
+			app.menu_dropdown.dismiss()

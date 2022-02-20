@@ -1,0 +1,65 @@
+#===========================================================================================================#
+
+#   COURSE-SECTION: BSCPE 2-2
+#   SUBJECT: SOFTWARE DEVELOPMENT
+#   GROUP MEMBERS:
+#           DIBANSA, RAHMANI 
+#           NAVARRO, KAREN
+#           PALATTAO, LARRY SIMOUN
+#           AQUINO, NIKKO LEO
+#   BRIEF DESCRIPTION OF THE PROGRAM:
+#           THIS PROGRAM IS A FITNESS APP AIMED TO PROVIDE ITS USERS THE LEISURE AND CONVENIENCE OF FINDING
+#       SUITABLE EXERCISES. THE PROGRAM IS MADE USING PYTHON, KIVY, AND ITS DEPENDENCIES TO PROVIDE A
+#       MULTI-PLATFORM ACCESS TO THE APPLICATION'S USERS.
+#           SAID FITNESS ANDROID APPLICATION IS A MIDTERM PROJECT FOR THE SOFTWARE DEVELOPMENT SUBJECT. THE
+#       PROGRAM WILL BE ASSESSED AND GRADED USING THE ESTABLISHED CRITERIA BEFOREHAND.
+#
+# REPRESENTATION OF THE CONNECTION OF THE PROGRAM'S SCREENS/WINDOWS.
+#	,->startup_screen <--------------------------------( LOG OUT )--------------------------------,
+#	|			↑																				  |
+#	|			'---->login_screen -----> main_screen ------------------------------------------->|
+#	'-----> SignUpScreen				  ↑	 ↑                                                    |
+#										  |	 '--------------------> report_screen --------------->|
+#										  |							 ↑                            |
+#										  '----> selected_workout ---'--------------------------->|
+#										  |  	  |                                               |
+#										  '-------'----> workout_screen                           |
+#										  | 			      |                                   |
+#										  '-------------------'----> congratulation_screen ------>'
+
+#===========================================================================================================#
+
+
+#========== START UP SCREEN ==========#
+# THIS IS THE VERY FIRST SCREEN THAT THE
+# USER WILL SEE AFTER STARTING THE 
+# APPLICATION. THE SCREEN WELCOMES WILL
+# BE WELCOMING THE USER WOULD HAVE THE 
+# OPTION TO EITHER LOG IN OR SIGN UP.
+<StartUpScreen>:
+	FloatLayout:
+		canvas.before:
+			Rectangle:
+				pos: self.pos
+				size: self.size
+				source: "resources/backgrounds/startup_background.jpg"
+		ImageButton:
+			id: S_login_BTN
+			source: "resources/buttons/login.jpg"
+			#background_color: 0, 0, 0, 0
+			allow_stretch: True
+			keep_ratio: False
+			size_hint : 0.35, 0.05
+			pos_hint : { "x" : 0.325 , "y" : 0.53 }
+			on_release:
+				app.root.current = "login_screen"
+		ImageButton:
+			id: S_signup_BTN
+			source: "resources/buttons/signup.jpg"
+			#background_color: 0, 0, 0, 0
+			allow_stretch: True
+			keep_ratio: False
+			size_hint : 0.35, 0.05
+			pos_hint : { "x" : 0.325 , "y" : 0.43 }
+			on_release:
+				app.root.current = "signup_screen"

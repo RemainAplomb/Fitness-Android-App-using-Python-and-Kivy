@@ -1,0 +1,664 @@
+#===========================================================================================================#
+
+#   COURSE-SECTION: BSCPE 2-2
+#   SUBJECT: SOFTWARE DEVELOPMENT
+#   GROUP MEMBERS:
+#           DIBANSA, RAHMANI 
+#           NAVARRO, KAREN
+#           PALATTAO, LARRY SIMOUN
+#           AQUINO, NIKKO LEO
+#   BRIEF DESCRIPTION OF THE PROGRAM:
+#           THIS PROGRAM IS A FITNESS APP AIMED TO PROVIDE ITS USERS THE LEISURE AND CONVENIENCE OF FINDING
+#       SUITABLE EXERCISES. THIS PROGRAM IS MADE USING PYTHON, KIVY, AND ITS DEPENDENCIES TO PROVIDE A
+#       MULTI-PLATFORM ACCESS TO THE APPLICATION'S USERS.
+#           THIS FITNESS ANDROID APPLICATION IS A MIDTERM PROJECT FOR THE SOFTWARE DEVELOPMENT SUBJECT. THE
+#       PROGRAM WILL BE ASSESSED AND GRADED USING THE ESTABLISHED CRITERIA BEFOREHAND.
+#
+# REPRESENTATION OF THE CONNECTION OF THE PROGRAM'S SCREENS/WINDOWS.
+#	,->startup_screen <--------------------------------( LOG OUT )--------------------------------,
+#	|			↑																				  |
+#	|			'---->login_screen -----> main_screen ------------------------------------------->|
+#	'-----> SignUpScreen				  ↑	 ↑                                                    |
+#										  |	 '--------------------> report_screen --------------->|
+#										  |							 ↑                            |
+#										  '----> selected_workout ---'--------------------------->|
+#										  |  	  |                                               |
+#										  '-------'----> workout_screen                           |
+#										  | 			      |                                   |
+#										  '-------------------'----> congratulation_screen ------>'
+
+#===========================================================================================================#
+
+#========== IMPORTING/INCLUDING KIVY FILES ==========#
+# THE KIVY FILES CAN BE FOUND IN THE FOLDER /kv
+# THESE INCLUDES ARE A NECESSARY PART OF THE WHOLE
+# PROGRAM. INSIDE THESE FILES ARE THE KIVY 
+# REPRESENTATION OF THE PROGRAM'S VISUAL INTERACTION
+# WITH THE USER.
+
+#:import utils kivy.utils
+#:import ScrollEffect kivy.effects.scroll.ScrollEffect
+#:include kv/startup_screen.kv
+#:include kv/login_screen.kv		
+#:include kv/signup_screen.kv
+#:include kv/congratulation_screen.kv
+#:include kv/selectedworkout_screen.kv
+#:include kv/workout_screen.kv
+#:include kv/menu_dropdown.kv
+#====================================================#
+
+
+#========== THE PROGRAM'S SCREEN MANAGER ==========#
+# THE SCREEN MANAGER FUNCTIONALITY IS RESPONSIBLE
+# FOR THE PROPER REFERENCING OF EACH SCREEN/WINDOW
+# OF THE ANDROID APPLICATION.
+#
+# THE SCREENS A	RE AS FOLLOWS:
+#   StartUpScreen: THE VERY FIRST SCREEN THAT WILL WELCOME THE
+#                  USER WHEN THE APP RUNS.
+#
+#   LogInScreen: THE SCREEN THAT FACILITATES THE USER'S LOG IN.
+#
+#   SignUpScreen: THE SCREEN THAT FACILITATES THE USER'S ACCOUNT
+#                 CREATION.
+#
+#   MainScreen: THIS SCREEN HOLDS A LIST OF WORKOUT ROUTINES.
+#               THIS SCREEN CAN ONLY BE ACCESSED AFTER LOGGING IN.
+#
+#   ReportScreen: THIS SCREEN SHOWS THE USER'S STATS.
+#
+#   SelectedWorkoutScreen: THIS SCREEN WILL HOLD THE USER'S SELECTED
+#                          WORKOUT.
+#
+#   WorkoutScreen: THIS SCREEN SHOWS THE EXERCISES THAT SHOULD BE
+#                  EXECUTED TO FINISH THE WORKOUT ROUTINE.
+#
+#   CongratulationScreen: THIS SCREEN WILL POP UP AFTER FINISHING A
+#                         WORKOUT.
+#
+#   MenuDropDown: THIS DROP DOWN MENU HOLDS REFERENCE BUTTONS THAT
+#                 WILL LEAD THE USER TOWARDS ONE OF THESE SCREENS;
+#                 MainScreen, ReportScreen, StartUpScreen. 
+ScreenManager:
+	id: screen_manager
+	StartUpScreen:
+		name: "startup_screen"
+		id: startup_screen
+	LogInScreen:
+		name: "login_screen"
+		id: login_screen
+	SignUpScreen:
+		name: "signup_screen"
+		id: signup_screen
+	MainScreen:
+		name: "main_screen"
+		id: main_screen
+	ReportScreen:
+		name: "report_screen"
+		id: report_screen
+	WorkoutScreen
+		name: "workout_screen"
+		id: workout_screen
+	SelectedWorkoutScreen:
+		name: "selectedworkout_screen"
+		id: selectedworkout_screen
+	CongratulationScreen:
+		name: "congratulation_screen"
+		id: congratulation_screen
+		
+
+#========== SCALE LABEL ==========#
+# THIS IS A CUSTOM WIDGET FUNCTIONALITY
+# THAT INHERITS THE FEATURE OF A LABEL
+# AND A SCALE. USING THIS, THE TEXTS 
+# WOULD DYNAMICALLY ADJUST DEPENDING ON
+# SCREEN SIZE AND THE NUMBER OF TEXT
+# HELD BY THE SCALE LABEL.		
+<ScaleLabel@Label>:
+    _scale: 1. if self.texture_size[0] < self.width else float(self.width) / self.texture_size[0]
+    canvas.before:
+        PushMatrix
+        Scale:
+            origin: self.center
+            x: self._scale or 1.
+            y: self._scale or 1.
+    canvas.after:
+        PopMatrix
+
+
+#========== THE REPORT SCREEN ==========#
+# CONTAINED WITHIN THIS BLOCK OF CODE IS
+# THE KIVY REPRESENTATION OF THE WIDGETS
+# THAT CAN BE SEEN WHENEVER THE USER 
+# VISITS THE REPORT SCREEN THAT HOUSES
+# THE USER'S ACCUMULATED STATS.
+<ReportScreen>:
+	GridLayout:
+		cols: 1
+		FloatLayout:
+			canvas.before:
+				Rectangle:
+					pos: self.pos
+					size: self.size
+					source: "resources/backgrounds/headline_background.jpg"
+			size_hint: 1, 0.08
+			FloatLayout:
+				size_hint: 0.1, 1
+				pos_hint: { "x" : 0 , "y" : 0 }
+				canvas.before:
+					Rectangle:
+						size: self.size
+						pos: self.pos
+						source: "resources/buttons/navigation_bar.jpg"
+				Button:
+					id: sidemenu_BTN
+					size_hint: 1, 1
+					background_color: 0, 0, 0, 0
+					pos_hint: { "x" : 0 , "y" : 0 }
+					on_release:
+						app.menu_dropdown.open(self)
+			FloatLayout:
+				size_hint: 0.3, 1
+				pos_hint: { "x" : 0.13 , "y" : 0 }
+				canvas.before:
+					Rectangle:
+						size: self.size
+						pos: self.pos
+						source: "resources/labels/home_fitness.jpg"	
+		FloatLayout:
+			canvas.before:
+				Rectangle:
+					pos: self.pos
+					size: self.size
+					source: "resources/backgrounds/character_menu.png"
+			size_hint: 1, 0.90
+			ScaleLabel:
+				id: username_lbl
+				text: app.username
+				color: utils.get_color_from_hex("#A0A6AA")
+				size_hint: 0.3, 0.1
+				font_size: self.height * 0.5
+				pos_hint: { "x" : 0.065, "y" : 0.9 }
+			ScaleLabel:
+				id: bodypart_lbl
+				text: ""
+				color: utils.get_color_from_hex("#5690B6")
+				size_hint: 0.4, 0.1
+				font_size: self.height * 0.5
+				pos_hint: { "x" : 0.03, "y" : 0.23 }
+			ScaleLabel:
+				id: beginner_lbl
+				text: ""
+				color: utils.get_color_from_hex("#5690B6")
+				size_hint: 0.4, 0.1
+				font_size: self.height * 0.5
+				pos_hint: { "x" : 0.03, "y" : 0.17 }
+			ScaleLabel:
+				id: intermediate_lbl
+				text: ""
+				color: utils.get_color_from_hex("#5690B6")
+				size_hint: 0.45, 0.1
+				font_size: self.height * 0.5
+				pos_hint: { "x" : 0, "y" : 0.10 }
+			ScaleLabel:
+				id: advance_lbl
+				text: ""
+				color: utils.get_color_from_hex("#5690B6")
+				size_hint: 0.4, 0.1
+				font_size: self.height * 0.5
+				pos_hint: { "x" : 0.03, "y" : 0.03 }
+			ScaleLabel:
+				id: totalworkouts_lbl
+				text: ""
+				color: utils.get_color_from_hex("#A0A6AA")
+				size_hint: 0.4, 0.2
+				font_size: self.height * 0.5
+				pos_hint: { "x" : 0.51, "y" : 0.63 }
+			ScaleLabel:
+				id: totalexercises_lbl
+				text: ""
+				color: utils.get_color_from_hex("#A0A6AA")
+				size_hint: 0.4, 0.2
+				font_size: self.height * 0.5
+				pos_hint: { "x" : 0.51, "y" : 0.4 }
+			ImageButton:
+				id: back_BTN
+				source: "resources/buttons/notclicked_btn.png"
+				size_hint: 0.05, 0.05
+				#background_color: 0, 0, 0, 0
+				pos_hint: { "x" : 0.02 , "y" : 0.7 }
+				allow_stretch: True
+				keep_ratio: False
+				on_release:
+					app.bodypart_selected( "back" )
+					app.show_bodypart_stats( "back" )
+			ImageButton:
+				id: arms_BTN
+				source: "resources/buttons/notclicked_btn.png"
+				size_hint: 0.05, 0.05
+				#background_color: 0, 0, 0, 0
+				pos_hint: { "x" : 0.02 , "y" : 0.63 }
+				allow_stretch: True
+				keep_ratio: False
+				on_release:
+					app.bodypart_selected( "arms" )
+					app.show_bodypart_stats( "arms" )
+			ImageButton:
+				id: chest_BTN
+				source: "resources/buttons/notclicked_btn.png"
+				size_hint: 0.05, 0.05
+				#background_color: 0, 0, 0, 0
+				pos_hint: { "x" : 0.02 , "y" : 0.56 }
+				allow_stretch: True
+				keep_ratio: False
+				on_release:
+					app.bodypart_selected( "chest" )
+					app.show_bodypart_stats( "chest" )
+			ImageButton:
+				id: abs_BTN
+				source: "resources/buttons/notclicked_btn.png"
+				size_hint: 0.05, 0.05
+				#background_color: 0, 0, 0, 0
+				pos_hint: { "x" : 0.02 , "y" : 0.49 }
+				allow_stretch: True
+				keep_ratio: False
+				on_release:
+					app.bodypart_selected( "abs" )
+					app.show_bodypart_stats( "abs" )
+			ImageButton:
+				id: butt_BTN
+				source: "resources/buttons/notclicked_btn.png"
+				size_hint: 0.05, 0.05
+				#background_color: 0, 0, 0, 0
+				pos_hint: { "x" : 0.02 , "y" : 0.42 }
+				allow_stretch: True
+				keep_ratio: False
+				on_release:
+					app.bodypart_selected( "butt" )
+					app.show_bodypart_stats( "butt" )
+			ImageButton:
+				id: legs_BTN
+				source: "resources/buttons/notclicked_btn.png"
+				size_hint: 0.05, 0.05
+				#background_color: 0, 0, 0, 0
+				pos_hint: { "x" : 0.02 , "y" : 0.35 }
+				allow_stretch: True
+				keep_ratio: False
+				on_release:
+					app.bodypart_selected( "legs" )
+					app.show_bodypart_stats( "legs" )
+
+
+#========== MAIN SCREEN ==========#	
+# CONTAINED WITHIN THIS BLOCK OF CODE IS
+# THE KIVY REPRESENTATION OF THE WIDGETS
+# THAT CAN BE SEEN IN THE MAIN SCREEN.
+# THE MAIN SCREEN ACCOMODATES A WIDE ARRAY
+# OF WORKOUT ROUTINES AND THEI RESPECTIVE
+# LEVEL OF INTENSITIES.				
+<MainScreen>:
+	GridLayout:
+		cols: 1
+		FloatLayout:
+			canvas.before:
+				Rectangle:
+					pos: self.pos
+					size: self.size
+					source: "resources/backgrounds/headline_background.jpg"
+			size_hint: 1, 0.08
+			FloatLayout:
+				size_hint: 0.1, 1
+				pos_hint: { "x" : 0 , "y" : 0 }
+				canvas.before:
+					Rectangle:
+						size: self.size
+						pos: self.pos
+						source: "resources/buttons/navigation_bar.jpg"
+				Button:
+					id: sidemenu_BTN
+					size_hint: 1, 1
+					background_color: 0, 0, 0, 0
+					pos_hint: { "x" : 0 , "y" : 0 }
+					on_release:
+						app.menu_dropdown.open(self)
+			FloatLayout:
+				size_hint: 0.3, 1
+				pos_hint: { "x" : 0.13 , "y" : 0 }
+				canvas.before:
+					Rectangle:
+						size: self.size
+						pos: self.pos
+						source: "resources/labels/home_fitness.jpg"
+		ScrollView:
+			size_hint: 1, 0.90
+			effect_cls: ScrollEffect
+			GridLayout:
+				canvas:
+					Color:
+						rgba: utils.get_color_from_hex("#808387")
+					Rectangle:
+						size: self.size
+						pos: self.pos
+				cols: 1
+				size_hint_y: None
+				height: self.minimum_height
+				row_default_height: root.height * 0.6
+				spacing: root.width * 0.01, root.height * 0.01
+				GridLayout:
+					canvas:
+						Color:
+							rgba: 1, 1, 1, 1
+						Rectangle:
+							size: self.size
+							pos: self.pos
+					cols: 1
+					padding: root.width * 0.015, root.height * 0.015
+					spacing: root.width * 0.01, root.height * 0.01
+					size_hint: 1, 0.3
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/back_beginner.jpg"
+						Button:
+							id: back_beginner_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "back_beginner", "beginner" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/back_intermediate.jpg"
+						Button:
+							id: back_intermediate_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "back_intermediate", "intermediate" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/back_advance.jpg"
+						Button:
+							id: back_advance_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "back_advance", "advance" )
+								app.root.current = "selectedworkout_screen"
+				GridLayout:
+					canvas:
+						Color:
+							rgba: 1, 1, 1, 1
+						Rectangle:
+							size: self.size
+							pos: self.pos
+					cols: 1
+					padding: root.width * 0.015, root.height * 0.015
+					spacing: root.width * 0.01, root.height * 0.01
+					size_hint: 1, 0.3
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/arms_beginner.jpg"
+						Button:
+							id: arms_beginner_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "arms_beginner", "beginner" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/arms_intermediate.jpg"
+						Button:
+							id: arms_intermediate_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "arms_intermediate", "intermediate" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/arms_advance.jpg"
+						Button:
+							id: arms_advance_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "arms_advance", "advance" )
+								app.root.current = "selectedworkout_screen"
+				GridLayout:
+					canvas:
+						Color:
+							rgba: 1, 1, 1, 1
+						Rectangle:
+							size: self.size
+							pos: self.pos
+					cols: 1
+					padding: root.width * 0.015, root.height * 0.015
+					spacing: root.width * 0.01, root.height * 0.01
+					size_hint: 1, 0.3
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/chest_beginner.jpg"
+						Button:
+							id: chest_beginner_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "chest_beginner", "beginner" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/chest_intermediate.jpg"
+						Button:
+							id: chest_intermediate_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "chest_intermediate", "intermediate" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/chest_advance.jpg"
+						Button:
+							id: chest_advance_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "chest_advance", "advance" )
+								app.root.current = "selectedworkout_screen"		
+				GridLayout:
+					canvas:
+						Color:
+							rgba: 1, 1, 1, 1
+						Rectangle:
+							size: self.size
+							pos: self.pos
+					cols: 1
+					padding: root.width * 0.015, root.height * 0.015
+					spacing: root.width * 0.01, root.height * 0.01
+					size_hint: 1, 0.3
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/abs_beginner.jpg"
+						Button:
+							id: abs_beginner_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "abs_beginner", "beginner" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/abs_intermediate.jpg"
+						Button:
+							id: abs_intermediate_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "abs_intermediate", "intermediate" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/abs_advance.jpg"
+						Button:
+							id: abs_advance_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "abs_advance", "advance" )
+								app.root.current = "selectedworkout_screen"
+				GridLayout:
+					canvas:
+						Color:
+							rgba: 1, 1, 1, 1
+						Rectangle:
+							size: self.size
+							pos: self.pos
+					cols: 1
+					padding: root.width * 0.015, root.height * 0.015
+					spacing: root.width * 0.01, root.height * 0.01
+					size_hint: 1, 0.3
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/butt_beginner.jpg"
+						Button:
+							id: butt_beginner_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "butt_beginner", "beginner" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/butt_intermediate.jpg"
+						Button:
+							id: butt_intermediate_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "butt_intermediate", "intermediate" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/butt_advance.jpg"
+						Button:
+							id: butt_advance_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "butt_advance", "advance" )
+								app.root.current = "selectedworkout_screen"
+				GridLayout:
+					canvas:
+						Color:
+							rgba: 1, 1, 1, 1
+						Rectangle:
+							size: self.size
+							pos: self.pos
+					cols: 1
+					padding: root.width * 0.015, root.height * 0.015
+					spacing: root.width * 0.01, root.height * 0.01
+					size_hint: 1, 0.3
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/legs_beginner.jpg"
+						Button:
+							id: legs_beginner_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "legs_beginner", "beginner" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/legs_intermediate.jpg"
+						Button:
+							id: legs_intermediate_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "legs_intermediate", "intermediate" )
+								app.root.current = "selectedworkout_screen"
+					FloatLayout:
+						canvas.before:
+							Rectangle:
+								size: self.size
+								pos: self.pos
+								source: "resources/buttons/legs_advance.jpg"
+						Button:
+							id: legs_advance_BTN
+							size_hint: 1, 1
+							background_color: 0, 0, 0, 0
+							pos_hint: { "x" : 0 , "y" : 0 }
+							on_release:
+								app.selected_workout( "legs_advance", "advance" )
+								app.root.current = "selectedworkout_screen"

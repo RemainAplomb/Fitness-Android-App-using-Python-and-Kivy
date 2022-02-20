@@ -1,0 +1,101 @@
+#===========================================================================================================#
+
+#   COURSE-SECTION: BSCPE 2-2
+#   SUBJECT: SOFTWARE DEVELOPMENT
+#   GROUP MEMBERS:
+#           DIBANSA, RAHMANI 
+#           NAVARRO, KAREN
+#           PALATTAO, LARRY SIMOUN
+#           AQUINO, NIKKO LEO
+#   BRIEF DESCRIPTION OF THE PROGRAM:
+#           THIS PROGRAM IS A FITNESS APP AIMED TO PROVIDE ITS USERS THE LEISURE AND CONVENIENCE OF FINDING
+#       SUITABLE EXERCISES. THE PROGRAM IS MADE USING PYTHON, KIVY, AND ITS DEPENDENCIES TO PROVIDE A
+#       MULTI-PLATFORM ACCESS TO THE APPLICATION'S USERS.
+#           SAID FITNESS ANDROID APPLICATION IS A MIDTERM PROJECT FOR THE SOFTWARE DEVELOPMENT SUBJECT. THE
+#       PROGRAM WILL BE ASSESSED AND GRADED USING THE ESTABLISHED CRITERIA BEFOREHAND.
+#
+# REPRESENTATION OF THE CONNECTION OF THE PROGRAM'S SCREENS/WINDOWS.
+#	,->startup_screen <--------------------------------( LOG OUT )--------------------------------,
+#	|			↑																				  |
+#	|			'---->login_screen -----> main_screen ------------------------------------------->|
+#	'-----> SignUpScreen				  ↑	 ↑                                                    |
+#										  |	 '--------------------> report_screen --------------->|
+#										  |							 ↑                            |
+#										  '----> selected_workout ---'--------------------------->|
+#										  |  	  |                                               |
+#										  '-------'----> workout_screen                           |
+#										  | 			      |                                   |
+#										  '-------------------'----> congratulation_screen ------>'
+
+#===========================================================================================================#
+
+
+#========== CONGRATULATIONS SCREEN ==========#
+# THIS IS THE SCREEN THAT CONGRATULATES THE USER
+# FOR SUCCESSFULLY FINISHING HIS SELECTED WORKOUT.
+<CongratulationScreen>:
+	GridLayout:
+		cols: 1
+		FloatLayout:
+			canvas.before:
+				Rectangle:
+					pos: self.pos
+					size: self.size
+					source: "resources/backgrounds/headline_background.jpg"
+			size_hint: 1, 0.08
+			FloatLayout:
+				size_hint: 0.1, 1
+				pos_hint: { "x" : 0 , "y" : 0 }
+				canvas.before:
+					Rectangle:
+						size: self.size
+						pos: self.pos
+						source: "resources/buttons/navigation_bar.jpg"
+				Button:
+					id: sidemenu_BTN
+					size_hint: 1, 1
+					background_color: 0, 0, 0, 0
+					pos_hint: { "x" : 0 , "y" : 0 }
+					on_release:
+						app.menu_dropdown.open(self)
+			FloatLayout:
+				size_hint: 0.3, 1
+				pos_hint: { "x" : 0.13 , "y" : 0 }
+				canvas.before:
+					Rectangle:
+						size: self.size
+						pos: self.pos
+						source: "resources/labels/home_fitness.jpg"	
+		FloatLayout:
+			canvas.before:
+				Rectangle:
+					pos: self.pos
+					size: self.size
+					source: "resources/backgrounds/report_background.jpg"	
+			size_hint: 1, 0.90
+			Image:
+				id: congratulation_bk
+				source: "resources/backgrounds/congratulations_bk.jpg"
+				size_hint: 1, 1
+				pos_hint: { "x" : 0, "y" : 0 }
+				allow_stretch: True
+				keep_ratio: False
+				
+			Image:
+				id: workoutdone_img
+				source: "resources/backgrounds/back_advance.jpg"
+				size_hint: 0.4, 0.3
+				pos_hint: { "x" : 0.3 , "y" : 0.33 }
+				allow_stretch: True
+				keep_ratio: False
+				
+			ImageButton:
+				id: return_BTN
+				source: "resources/buttons/return.jpg"
+				size_hint: 1, 0.1
+				allow_stretch: True
+				keep_ratio: False
+				size_hint: 0.4, 0.1
+				pos_hint: { "x" : 0.3 , "y" : 0.2 }
+				on_release:
+					app.root.current = "main_screen"

@@ -1,0 +1,323 @@
+#===========================================================================================================#
+
+#   COURSE-SECTION: BSCPE 2-2
+#   SUBJECT: SOFTWARE DEVELOPMENT
+#   GROUP MEMBERS:
+#           DIBANSA, RAHMANI 
+#           NAVARRO, KAREN
+#           PALATTAO, LARRY SIMOUN
+#           AQUINO, NIKKO LEO
+#   BRIEF DESCRIPTION OF THE PROGRAM:
+#           THIS PROGRAM IS A FITNESS APP AIMED TO PROVIDE ITS USERS THE LEISURE AND CONVENIENCE OF FINDING
+#       SUITABLE EXERCISES. THE PROGRAM IS MADE USING PYTHON, KIVY, AND ITS DEPENDENCIES TO PROVIDE A
+#       MULTI-PLATFORM ACCESS TO THE APPLICATION'S USERS.
+#           SAID FITNESS ANDROID APPLICATION IS A MIDTERM PROJECT FOR THE SOFTWARE DEVELOPMENT SUBJECT. THE
+#       PROGRAM WILL BE ASSESSED AND GRADED USING THE ESTABLISHED CRITERIA BEFOREHAND.
+#
+# REPRESENTATION OF THE CONNECTION OF THE PROGRAM'S SCREENS/WINDOWS.
+#	,->startup_screen <--------------------------------( LOG OUT )--------------------------------,
+#	|			↑																				  |
+#	|			'---->login_screen -----> main_screen ------------------------------------------->|
+#	'-----> SignUpScreen				  ↑	 ↑                                                    |
+#										  |	 '--------------------> report_screen --------------->|
+#										  |							 ↑                            |
+#										  '----> selected_workout ---'--------------------------->|
+#										  |  	  |                                               |
+#										  '-------'----> workout_screen                           |
+#										  | 			      |                                   |
+#										  '-------------------'----> congratulation_screen ------>'
+
+#===========================================================================================================#
+
+
+#========== WORKOUT SCREEN ==========#
+# THIS IS THE SCREEN THAT GUIDES THE 
+# USER IN HIS WORKOUT ROUTINE. ANIMATED 
+# GIF OF THE ACTION NEEDED TO BE DONE
+# IS SHOWN IN THIS SCREEN.
+<WorkoutScreen>:
+	GridLayout:
+		cols: 1
+		FloatLayout:
+			canvas.before:
+				Rectangle:
+					pos: self.pos
+					size: self.size
+					source: "resources/backgrounds/headline_background.jpg"
+			size_hint: 1, 0.08
+			Image:
+				id: workout_lbl
+				source: "resources/exercises/rest/exercise_lbl.jpg"
+				size_hint: 0.5, 1
+				pos_hint: { "x" : 0.25, "y" : 0 }
+				allow_stretch: True
+				keep_ratio: False
+
+		FloatLayout:
+			canvas.before:
+				Rectangle:
+					pos: self.pos
+					size: self.size
+					source: "resources/backgrounds/report_background.jpg"	
+			size_hint: 1, 0.90
+			Image:
+				id: workout_img
+				source: "resources/exercises/rest/1.jpg"
+				anim_delay: 0.5
+				size_hint: 1, 1
+				pos_hint: { "x" : 0, "y" : 0 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			ImageButton:
+				id: cancel_BTN
+				source: "resources/buttons/cancel.jpg"
+				size_hint: 1, 0.1
+				#background_color: 0, 0, 0, 0
+				pos_hint: { "x" : 0 , "y" : 0 }
+				allow_stretch: True
+				keep_ratio: False
+				on_release:
+					app.cancel_workout()
+					#app.root.current = "main_screen"
+			#loading
+			Image:
+				id: loading29
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading28
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.033 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading27
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.066 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading26
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.099 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading25
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.132 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading24
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.165 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading23
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.198 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading22
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.231 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading21
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.264 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading20
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.297 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading19
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.33 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading18
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.363 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading17
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.396 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading16
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.429 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading15
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.462 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading14
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.495 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading13
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.528 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading12
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.561 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading11
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.594 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading10
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.627 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading9
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.66 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading8
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.693 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading7
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.726 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading6
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.759 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading5
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.792 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading4
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.825 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading3
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.858 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading2
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.033, 0.05
+				pos_hint: { "x" : 0.891 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading1
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.038, 0.05
+				pos_hint: { "x" : 0.924 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
+			Image:
+				id: loading0
+				source: "resources/labels/loading.jpg"
+				size_hint: 0.038, 0.05
+				pos_hint: { "x" : 0.962 , "y" : 0.1 }
+				allow_stretch: True
+				keep_ratio: False
+				keep_data: True
